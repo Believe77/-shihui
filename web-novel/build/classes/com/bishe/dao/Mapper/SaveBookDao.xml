@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bishe.dao.java.SaveBookDao">
+
+   <select id="findBook" parameterType="map" resultType="NovelType">
+      select path,name,author,message,type,style,countNumber from basedict where bid=#{bid}
+   </select>
+   
+   <insert id="saveBook" parameterType="map" >
+      insert into shelf(path,name,author,user_id,bid,message,type,style,countNumber) values(#{path},#{name},#{author},#{user_id},#{bid},#{message},#{type},#{style},#{countNumber})
+   </insert>
+   
+   <select id="findCount" parameterType="map" resultType="Integer">
+      select countRead from basedict where bid=#{bid2}
+   </select>
+   
+   <update id="saveCount" parameterType="map">
+      update basedict set countRead=#{countRead} where bid=#{bid}
+   </update>
+   
+   <select id="ask" parameterType="map" resultType="String">
+      select forbidden from t_user where id=#{id}
+   </select>
+</mapper>

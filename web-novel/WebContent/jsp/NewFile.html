@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>  
+<title>Insert title here</title>
+</head>
+
+<script>
+ $(function(){
+    $('#submit').click(function(){
+        $.ajax({
+            url : 'http://47.112.20.43/web-novel/user/upload.action',
+            type : 'POST',
+            data : new FormData($("#form")[0]),
+            dataType: 'JSON',  
+            cache: false,  
+            processData: false,  
+            contentType: false,
+            success : function(result) {
+            	alert(result);
+            },
+            error : function(err) {
+            	alert("sa");
+            }
+        });
+    })  
+})  
+</script>
+<body>
+<img src="http://47.112.20.73//web-novel/image/444.jpg">
+<form id="form"  method="post" 
+         enctype="multipart/form-data" >
+    <input type="file" name="file"> 
+    <input id="submit" type="submit" value="提交">
+   
+</form>
+</html>

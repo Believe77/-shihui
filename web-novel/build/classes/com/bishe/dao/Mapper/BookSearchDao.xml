@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.bishe.dao.java.BookSearchDao">
+
+	
+	 <select id="searchBook"   parameterType="map" resultType="Search">
+	   select bid,path,name,author,message,type,style,countNumber from basedict where ${name} like '%${value}%' 
+	</select>
+	 
+	<select id="sort" resultType="NovelType">
+	   SELECT * FROM basedict ORDER BY countRead DESC
+	</select>
+	
+	<select id="findcomment" parameterType="map" resultType="Comment">
+	   select * from comment where username=#{username} and zhuangtai="0"
+	</select>
+	
+	<select id="findshelf" parameterType="map" resultType="Shelf">
+	   select * from shelf where user_id=#{user_id} 
+	</select>
+	
+	<update id="saveMessage" parameterType="map">
+	   update basedict set name=#{name},message=#{message},author=#{author},type=#{type},style=#{style} where bid=#{bid}
+	</update>
+	
+	<insert id="addTitle" parameterType="map">
+	   insert into section(bid,title,content) values(#{bid},#{title},#{content})
+	</insert>
+</mapper>

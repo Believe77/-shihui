@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bishe.dao.java.ReadNovelDao">
+
+   <select id="read" parameterType="map" resultType="Section">
+       select id,bid,title,content from section where bid=#{bid}    
+   </select>
+   
+   <insert id="comment" parameterType="map" > 
+       insert into comment(username,bname,title,comment,date,path,zhuangtai) values(#{username},#{bname},#{title},#{comment},#{date},#{path},"0")  
+   </insert>
+   
+   <select id="get" parameterType="map" resultType="Hot">
+        select bid,author,countNumber,message,name,path,style,type from basedict where bid=#{bid}
+   </select>
+   
+   
+   <select id="findComment" parameterType="map" resultType="Comment">
+       select username,bname,title,comment,date,path from comment where title=#{title} and zhuangtai="0"
+   </select>
+   
+   <select id="deleteComment" parameterType="map">    
+      delete from comment where username=#{username} and date=#{date}  
+   </select>
+   
+   <select id="delete" parameterType="map">
+      delete from shelf where user_id=#{user_id} and name=#{name}
+   </select>
+   
+   
+   <select id="fianImage" parameterType="map" resultType="String">
+      select path from t_user where id=#{id}
+   </select>
+   
+   <select id="findName" parameterType="map" resultType="String">
+      select name from t_user where id=#{id}
+   </select>
+</mapper>

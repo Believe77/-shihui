@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.bishe.dao.java.GetImageDao">
+
+	
+	 <select id="find"  resultType="topimage">
+	   select id,path,bid from topimage
+	</select>
+	 
+	<select id="getUserMessage" resultType="User">
+	   select name,manger from t_user where manger=1
+	</select>
+	
+	<select id="getUserCommon" resultType="User">
+	   select name,manger from t_user where manger=0
+	</select>
+	
+	<select id="handle" parameterType="map">
+	   update t_user set manger=#{manger} where name=#{name}
+	</select>
+	
+	<select id="forbidden" parameterType="map">
+	   update t_user set forbidden=#{forbidden} where name=#{name}
+	</select>
+	
+	<select id="returnForbidden" resultType="h_user">
+	   select name,forbidden,forbiddenNumber from t_user where manger=0 order by forbiddenNumber desc 
+	</select>
+	
+	<select id="findNumber" parameterType="map" resultType="Integer">
+	   select forbiddenNumber from t_user where name=#{name}
+	</select>
+	
+	<update  id="saveNumber" parameterType="map">
+	   update t_user set forbiddenNumber=#{forbiddenNumber} where name=#{name}
+	</update>
+	
+	<select id="getComment" parameterType="map" resultType="h_comment">
+	   select id,bname,comment,date,zhuangtai from comment where title=#{title} 
+	</select>
+	
+	<update id="mix" parameterType="map">
+	   update comment set zhuangtai=#{zhuangtai} where username=#{username} and date=#{date}
+	</update>
+</mapper>

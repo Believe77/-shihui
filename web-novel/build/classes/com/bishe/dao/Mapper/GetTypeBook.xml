@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bishe.dao.java.GetTypeBookDao">
+
+	 <select id="findBookType"  parameterType="map" resultType="NovelType">
+	   select bid,path,name,message,author,style,countNumber,type from basedict where type=#{type}
+	</select>
+	 
+	 <select id="deletebook" parameterType="map">
+	    delete from basedict where bid=#{bid}
+	 </select>
+	
+	<select id="getTitle" parameterType="map" resultType="h_title">
+	   select id,title from section where bid=#{bid}
+	</select>
+	
+	<select id="getContent" parameterType="map" resultType="h_content">
+	   select id,title,content from section where title=#{title}
+	</select>
+	
+	<update id="saveContent" parameterType="map"> 
+	   update section set content=#{content} where title=#{title}
+	</update>
+	
+	<update id="saveTitle" parameterType="map">
+	   update section set title=#{title} where id=#{id}
+	</update>
+</mapper> 

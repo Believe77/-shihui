@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bishe.dao.java.PersonalMessageDao">
+
+   <update id="saveMessage"  parameterType="User">
+      update t_user set name=#{name},password=#{password},sex=#{sex},path=#{path} where id=#{id}
+   </update>
+   
+   <select id="savePath" parameterType="map">
+      update t_user set path=#{path} where id=#{id}
+   </select>
+   
+   <select id="findMessage" parameterType="map" resultType="User">
+      select t.id,t.name,t.path,t.sex,t.manger from t_user t where id=#{id}
+   </select>
+   
+   <select id="getImage" resultType="PersonalImage">
+      select id,image from periamge
+   </select>
+   
+   
+   <select id="find" parameterType="map" resultType="NovelType">
+      select bid,path,name,message,author,type,style from basedict where name=#{name}
+   </select>
+   
+   <insert id="upload2" parameterType="map">
+      insert into basedict(path,name,message,author,type,style,countRead) values(#{path},#{name},#{message},#{author},#{type},#{style},0)
+   </insert>
+</mapper>
