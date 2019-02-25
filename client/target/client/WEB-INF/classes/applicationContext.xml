@@ -2,25 +2,22 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-4.1.xsd
-        http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
 
-   <!-- <import resource="spring-mybatis.xml"/>-->
 
-    <!-- 引入配置文件 -->
+
+    <!-- 引入配置文件，数据库信息 -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:jdbc.properties"/>
     </bean>
 
-    <!-- 使用阿里巴巴的durid 配置数据源 -->
+    <!-- 使用阿里巴巴的durid 配置数据源,数据库连接 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="${driver}"/>
         <property name="url" value="${url}"/>
@@ -48,23 +45,26 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <!-- 自动扫描mapping.xml文件 -->
+        <property name="configLocation" value="classpath:sqlMapConfig.xml"/>
         <property name="mapperLocations" value="classpath*:cn/van/mapping/*.xml"/>
     </bean>
 
 
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+    <!-- Mapper动态代理开发   扫描 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="cn.van.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
     <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+    <!--注解事务-->
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <!-- 声明式事务 -->
+    <!-- 声明式事务   开启注解 -->
     <tx:annotation-driven transaction-manager="transactionManager"
                           proxy-target-class="true" />
 </beans>

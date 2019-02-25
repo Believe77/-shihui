@@ -12,11 +12,21 @@
     <!--在controller中支持springmvc的注解，不加的话将不支持，注入会失败-->
     <mvc:annotation-driven/>
 
-    <context:component-scan base-package="cn.van.controller">
+    <!-- 扫描@Controler  @Service   -->
+    <context:component-scan base-package="cn.van"/>
+
+   <!-- <context:component-scan base-package="cn.van.controller">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
-    </context:component-scan>
+    </context:component-scan>-->
 
+    <mvc:annotation-driven conversion-service="conversionServiceFactoryBean"/>
+
+    <bean id="conversionServiceFactoryBean" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+
+    </bean>
+
+    <!--视图解析器，跳转页面-->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>

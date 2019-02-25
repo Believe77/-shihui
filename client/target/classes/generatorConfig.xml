@@ -10,9 +10,9 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <!-- 数据库连接 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/shop-project"
-                        userId="root" password="123456" />
+                        userId="root" password="123456" />-->
 
         <!-- 生成的包名和工程名 -->
         <javaModelGenerator targetPackage="cn.van.entity"
